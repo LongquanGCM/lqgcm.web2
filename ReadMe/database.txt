@@ -1,0 +1,68 @@
+前台每个类目数据表需要的栏目
+[done] static pages:
+  1.1 [done] 学诚法师: static page "venerable-profile.html"
+  6.1 [done] 龙泉大悲寺简介 (possible to make it home page??): static page "about.html"
+  6.4 [done] 联系我们: static page "contact.html"
+
+[done] articles: title, author (opt), picture (opt), source (opt), link (opt), pubDate, description (opt), content (opt), reply/comment (opt), tags (opt)
+  1.2 [done] 著作 (venerable-blog):  l.title,         l.author, picture,                     , l.pubDate, l.article description, article content, reply/comment
+  2.3 [done] 大悲视野 (dabeishiye):           l.title,         l.author, picture, source, link -> news, l.pubDate,    l.news description,    news content
+  2.4 [done] 心得分享 (report报道,记实??):      l.title,         l.author, picture,       ,             , l.pubDate,                      ,         content
+  4.2 [done] 活动心得 (records-share):  l.title (xx心得), l.author, picture,                     , l.pubDate,                      ,         content, tags
+  4.3 [done] 欧洲参访心得 (share views): l.title,         ,       ,        ,                     , l.pubDate,                      ,         content
+  
+[done] activities: title, location (opt), picture (opt), schedule (opt), source (opt), activity date, description, content (opt), tags (opt), enroll (opt)
+  2.1 [done] 法事活动 (event):    l.title, location, picture (opt), schedule      ,       ,    l.event date,    l.event description,    event content
+  2.2 [done] 学修课程 (seminar):  l.title, location, picture      , schedule (opt),       ,  l.seminar date,  l.seminar description,  seminar content
+  4.1 [done] 对外活动 (record):   l.title,         , picture      ,               ,       , l.activity date, l.activity description, activity content, tags
+  3.1 [done] 交流活动 (workshop): l.title,         , picture      ,      ,        , source, l.activity date, l.activity description, activity content, speakers
+  3.2 [done] 交流法师 (speaker): link to each speaker: l.speakers.name + l.speakers.role + l.speakers.picture + l.speakers.description, speakers.topic, speakers.content
+
+inspiration: topic, pub_time (opt), text (opt), picture (opt)
+  1.3 [done] 法语:      topic, pubDate, a sentence,
+  1.4 [done] 大和尚答疑: topic,        , text (Q&A),
+  1.5 [done] 小和尚贤二: topic, pubDate,           , picture
+
+Q&A: about Buddhism
+  5.1 佛教常识问答: ??
+
+others: 
+  6.2 僧团: name, role, picture, profile
+  6.3 义工: email enroll
+===========================
+
+articles:
+-- column (FK)         -> [著作 | 大悲视野 | 心得分享 | 活动心得 | 欧洲参访心得]
+-- title               -> 著作, 大悲视野, 心得分享, 活动心得, 欧洲参访心得
+-- author        (opt) -> 著作, 大悲视野, 心得分享, 活动心得, 
+-- picture       (opt) -> 著作, 大悲视野, 心得分享, 活动心得, 
+-- source        (opt) ->    , 大悲视野, 心得分享, 
+-- link          (opt) ->    , 大悲视野, 心得分享, 
+-- pubDate             -> 著作, 大悲视野, 心得分享, 活动心得, 欧洲参访心得
+-- description   (opt) -> 著作, 大悲视野, 
+-- content       (opt) -> 著作, 大悲视野, 心得分享, 活动心得, 欧洲参访心得
+-- reply/comment (opt) -> 著作,       ,        ,  
+-- tags          (opt) ->    ,       ,        , 活动心得
+
+activities:
+-- column (FK)         -> [法事活动 | 学修课程 | 对外活动 | 交流活动]
+-- title               -> 法事活动      , 学修课程, 对外活动, 交流活动, 
+-- location      (opt) -> 法事活动      , 学修课程,        ,        , 
+-- picture       (opt) -> 法事活动 (opt), 学修课程, 对外活动, 交流活动,  
+-- schedule      (opt) -> 法事活动      , 学修课程, 
+-- source        (opt) ->              ,       ,        , 交流活动, 
+-- activity date       -> 法事活动      , 学修课程, 对外活动, 交流活动, 
+-- description         -> 法事活动      , 学修课程, 对外活动, 交流活动,  
+-- content       (opt) -> 法事活动      , 学修课程, 对外活动, 交流活动,  
+-- tags          (opt) ->                      , 对外活动, 
+-- enroll        (opt) -> 
+  2.1 [done] 法事活动 (event):    l.title, location, picture (opt), schedule      ,       ,    l.event date,    l.event description,    event content
+  2.2 [done] 学修课程 (seminar):  l.title, location, picture      , schedule (opt),       ,  l.seminar date,  l.seminar description,  seminar content
+  4.1 [done] 对外活动 (record):   l.title,         , picture      ,               ,       , l.activity date, l.activity description, activity content, tags
+  3.1 [done] 交流活动 (workshop): l.title,         , picture      ,      ,        , source, l.activity date, l.activity description, activity content, speakers
+  3.2 [done] 交流法师 (speaker): link to each speaker: l.speakers.name + l.speakers.role + l.speakers.picture + l.speakers.description, speakers.topic, speakers.content
+
+inspiration: topic, pub_time (opt), text (opt), picture (opt)
+  1.3 [done] 法语:      topic, pubDate, a sentence,
+  1.4 [done] 大和尚答疑: topic,        , text (Q&A),
+  1.5 [done] 小和尚贤二: topic, pubDate,           , picture

@@ -1,0 +1,225 @@
+
+{% extends 'base.html' %}
+
+{% block title %}义工{% endblock %}
+			
+{% block content %}	
+
+<script> 
+
+$.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+});
+
+function to_be_volunteer() {
+	 var family_name = document.get_involved.family_name.value;
+	 if(family_name == null ||family_name ==''){
+		 document.getElementById("FamilynameErr").innerHTML="<font color='red'>姓不能为空！</font>"
+			 document.get_involved.family_name.focus();
+		     return false;
+	 }
+	 else{
+		 document.getElementById("FamilynameErr").innerHTML=""
+	 }
+	 
+	 var first_name  = document.get_involved.first_name.value;
+	 
+	 if(first_name == null ||first_name ==''){
+		 document.getElementById("FirstnameErr").innerHTML="<font color='red'>名不能为空！</font>"
+			 document.get_involved.first_name.focus();
+		 return false;
+	 }
+	 else{
+		 document.getElementById("FirstnameErr").innerHTML=""
+	 }
+	 
+	 var email = document.get_involved.email.value;
+	 if(email == null ||email ==''){
+		 document.getElementById("EmailErr").innerHTML="<font color='red'>邮箱不能为空！</font>"
+			 document.get_involved.email.focus();
+		    return false;
+	 }
+	 else{
+		 var pattern= /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;  
+	     strEmail=pattern.test(email); 
+	     if(!strEmail){
+	    	 document.getElementById("EmailErr").innerHTML="<font color='red'>邮箱格式不正确！</font>"
+				 document.get_involved.email.focus();
+			    return false;
+	     }
+		 else{
+			 document.getElementById("EmailErr").innerHTML=""
+		 }
+	 }
+	 
+	 var address1  = document.get_involved.address1.value;
+	 var address2 = document.get_involved.address2.value;
+	 var city  = document.get_involved.city.value;
+	 var country = document.get_involved.country.value;
+	 
+	 var zip  = document.get_involved.zip.value;
+	 if(zip == null ||zip ==''){
+		 document.getElementById("ZipErr").innerHTML="<font color='red'>邮编不能为空！</font>"
+			 document.get_involved.zip.focus();
+		     return false;
+	 }
+	 else{
+		 document.getElementById("ZipErr").innerHTML=""
+	 }
+	 
+	 var telephone = document.get_involved.telephone.value;
+	 var mobilephone  = document.get_involved.mobilephone.value;
+	 var skills = "";
+	 var edit_chbx = document.getElementById('edit_chbx');
+	  if(edit_chbx.checked)
+	    skills = skills+";文字编辑"
+	  
+	 var design_chbx = document.getElementById('design_chbx');
+	  if(design_chbx.checked)
+		skills = skills+";设计"
+	  
+	 var it_chbx = document.getElementById('it_chbx');
+	  if(it_chbx.checked)
+		skills = skills+";IT"
+		
+	 var photo_chbx = document.getElementById('photo_chbx');
+	  if(photo_chbx.checked)
+		skills = skills+";摄影"	  
+
+	 var vedio_chbx = document.getElementById('vedio_chbx');
+	  if(vedio_chbx.checked)
+	    skills = skills+";视频编辑"
+	 
+     var vedio_chbx = document.getElementById('vedio_chbx');
+	  if(vedio_chbx.checked)
+		skills = skills+";视频编辑"
+		 
+	 skills  = skills + ";" + document.get_involved.skill.value;
+	 var index = skills.indexOf(';')
+	 if  (index==0)
+		 skills= skills.substring(1);
+	 var contact_message  = document.get_involved.contact_message.value;
+	 
+	 
+	 $.post('{% url "app_longquan:to_be_volunteer" %}',{'family_name':family_name,'first_name':first_name,'email':email,'address1':address1,'address2':address2,'city':city,'country':country,'zip':zip,'telephone':telephone,'mobilephone':mobilephone,'skills':skills,'contact_message':contact_message}, function(ret){
+			      alert(ret);
+	 })
+	 }
+</script> 		
+			<!-- Page Heading -->
+			<section class="section page-heading animate-onscroll">
+				
+				<h1>义工</h1>
+			</section>
+			<!-- Page Heading -->
+			
+			
+			
+			
+			<!-- Section -->
+			<section class="section full-width-bg gray-bg">
+				
+				<div class="row">
+					
+					<div class="col-lg-9 col-md-9 col-sm-8">
+						
+						<div class="animate-onscroll">
+							<h3 class="no-margin-top">加入义工</h3>
+							<p></p>
+						</div>
+						
+						<form name="get_involved">
+						{% csrf_token %}
+							<div class="row">
+								
+								<div class="col-lg-6 col-md-6 col-sm-12 animate-onscroll">
+									
+									<h5>个人信息</h5>
+									
+									<label>姓*</label><span id="FamilynameErr"></span>
+									<input type="text" name="family_name">
+									<br><br>
+									<label>名*</label><span id="FirstnameErr"></span>
+									<input type="text" name="first_name">
+									<br><br>
+									<label>Email*</label><span id="EmailErr"></span>
+									<input type="text" name="email">
+									<br><br>
+									<label>地址1</label>
+									<input type="text" name="address1">
+									<br><br>
+									<label>地址2</label>
+									<input type="text" name="address2">
+									<br><br>
+									<label>城市</label>
+									<input type="text" name="city">
+									<br><br>
+									<div class="inline-inputs">
+										
+										<div class="col-lg-8 col-md-8 col-sm-8">
+											<label>国家</label>
+											<input type="text" name="country">
+										</div>
+										
+										<div class="col-lg-4 col-md-4 col-sm-4">
+											<label>邮编*</label><span id="ZipErr"></span>
+											<input type="text" name="zip">
+										</div>
+										
+									</div>
+									<br>
+									<label>电话</label>
+									<input type="text" name="telephone">
+									<br><br>
+									<label>手机</label>
+									<input type="text" name="mobilephone">
+									
+								</div>
+								
+								<div class="col-lg-6 col-md-6 col-sm-12 animate-onscroll">
+									
+									<h5>擅长</h5>
+									<input type="checkbox" id="edit_chbx"><label for="edit_chbx">文字编辑</label><br>
+									<input type="checkbox" id="design_chbx"><label for="design_chbx">设计</label><br>
+									<input type="checkbox" id="it_chbx"><label for="it_chbx">IT</label><br>
+									<input type="checkbox" id="photo_chbx"><label for="photo_chbx">摄影</label><br>
+									<input type="checkbox" id="vedio_chbx"><label for="vedio_chbx">视频编辑</label><br>
+									<input type="checkbox" id="other_chbx"><label for="other_chbx">其他</label><br>
+									<input type="text" name="skill">
+									
+									
+									<h5>留言</h5>
+									<textarea rows="10" name="contact_message"></textarea>
+								
+								</div>
+							
+							</div>
+							
+							<div class="align-center animate-onscroll">
+								<input type="button" value="提交" data-loading-text="Loading..." onclick="to_be_volunteer()">
+							</div>
+						
+						</form>
+						
+					</div>
+					
+					
+					
+<!-- Sidebar -->
+					
+<div class="col-lg-3 col-md-3 col-sm-4 sidebar">
+	
+{% include 'sidebar_activites.html' %}
+{% include 'sidebar_video.html' %}
+{% include 'sidebar_upcoming_events.html' %}
+{% include 'sidebar_xianer.html' %}						
+					
+</div>
+<!-- /Sidebar -->				
+					
+				
+				</div>
+				
+			</section>
+			<!-- /Section -->
+{% endblock %}

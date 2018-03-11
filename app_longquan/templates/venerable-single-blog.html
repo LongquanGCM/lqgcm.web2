@@ -1,0 +1,241 @@
+
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+
+{% block title %}学诚大和尚 | 著作{% endblock %}
+			
+{% block content %}	
+			
+			<!-- Page Heading -->
+			<section class="section page-heading animate-onscroll">
+				
+				<h1>{{ article.article_title | safe }}</h1>
+				
+							
+							<div class="post-meta animate-onscroll"  align="center">
+								<span><a href="#">{{ article.article_author | safe }}</a></span>
+								<span>{{ article.article_time | date:"Y-m-d H:i:s"}}</span>
+							</div>
+			</section>
+			<!-- Page Heading -->
+			
+
+			
+			<!-- Section -->
+			<section class="section full-width-bg gray-bg">
+				
+				<div class="row">
+				
+					<div class="col-lg-9 col-md-9 col-sm-8">
+						
+						<!-- Single Blog Post -->
+						<div class="blog-post-single">
+						
+							
+							<div class="post-content">
+								
+								{{ article.article_content | safe }}
+								
+							</div>
+							
+							
+							<!-- Post Meta Track -->
+							<div class="post-meta-track animate-onscroll">
+								
+								<table class="project-details">
+									
+									<tr>
+										<td class="share-media">
+											<ul class="social-share">	
+												<li>分享:</li>
+												<li class="facebook"><a href="#" class="tooltip-ontop" title="Facebook"><i class="icons icon-facebook"></i></a></li>
+												<li class="twitter"><a href="#" class="tooltip-ontop" title="Twitter"><i class="icons icon-twitter"></i></a></li>
+												<li class="google"><a href="#" class="tooltip-ontop" title="Google Plus"><i class="icons icon-gplus"></i></a></li>
+												<li class="email"><a href="#" class="tooltip-ontop" title="Email"><i class="icons icon-mail"></i></a></li>
+											</ul>
+										</td>
+										<td class="tags">标签: 
+										{% for tags in article.article_tag.all %}
+										<a href="#">{{tags.tag_name}}</a>&nbsp;
+										{% endfor%}
+									</tr>
+									
+								</table>
+								
+							</div>
+							<!-- /Post Meta Track -->
+							
+							
+							
+							<!-- Pagination -->
+							<div class="row animate-onscroll">
+								
+								<div class="col-lg-6 col-md-6 col-sm-6 button-pagination align-left">
+									<a href="#" class="button big previous">上一篇</a>
+								</div>
+								
+								<div class="col-lg-6 col-md-6 col-sm-6 button-pagination align-right">
+									<a href="#" class="button big next">下一篇</a>
+								</div>
+								
+							</div>
+							<!-- /Pagination -->
+							
+							
+							
+						</div>	
+						<!-- /Single Blog Post -->	
+							
+						
+						
+						<!-- Post Comments -->
+						<div class="post-comments">
+							{% if article.article_comment.all %}
+							<h3 class="animate-onscroll">评论</h3>
+							{% endif %}
+							
+							<ul>
+							
+							{% for comment in article.article_comment.all %}
+								{% if comment.comment_comment is None%}
+								<li>
+									
+									<div class="comment animate-onscroll">
+									
+										<div class="comment-author">
+											<img src="/static/img/touxiang.jpeg" alt="">
+											<div class="author-meta">
+												<h6>{{comment.comment_name | safe}}</h6>
+												<div class="comment-meta">
+													<span>{{ comment.comment_time | date:"Y-m-d H:i:s"}}</span>
+													<span><a href="replay()">回复</a></span>
+												</div>
+											</div>
+										</div>
+										
+										<div class="comment-content">
+											<p>{{comment.comment_content | safe}}</p>
+										</div>
+									
+																		
+							<form id="comment-replay-form" class="animate-onscroll" method="post" style="display:none">
+							{% csrf_token %}
+							<div class="inline-inputs" >
+								
+								<div class="col-lg-6 col-md-6 col-sm-6">
+									<label>姓名*</label>
+									{{ form.comment_name }}								
+								</div>
+								
+								<div class="col-lg-6 col-md-6 col-sm-6">
+									<label>邮箱*</label>
+									{{ form.comment_email }}		
+								</div>
+								
+								<div class="col-lg-12 col-md-12 col-sm-12">
+									<label>内容</label>
+									{{ form.comment_content }}
+								</div>
+								
+							</div>
+							
+							<input type="submit" value="发表评论">
+							
+						</form>
+									
+									
+									</div>
+
+									
+								
+									<ul>
+										{% for sub_comment in comment.comment.all %}
+										<li>
+									
+											<div class="comment animate-onscroll">
+											
+												<div class="comment-author">
+													<img src="/static/img/touxiang.jpeg" alt="">
+													<div class="author-meta">
+														<h6>{{sub_comment.comment_name | safe}}</h6>
+														<div class="comment-meta">
+															<span>{{ sub_comment.comment_time | date:"Y-m-d H:i:s"}}</span>
+															<span><a href="#comment-form">回复</a></span>
+														</div>
+													</div>
+												</div>
+												
+												<div class="comment-content">
+													<p>{{sub_comment.comment_content | safe}}</p>
+												</div>
+											
+											</div>
+											
+										</li>
+									   {% endfor %}	
+									</ul>
+									
+									
+								</li>
+								{% endif %}
+							{% endfor %}	
+								
+							</ul>
+							
+						</div>
+						<!-- /Post Comments -->
+						
+						
+						
+						<h3 class="animate-onscroll">发表评论</h3>
+					
+						<p class="animate-onscroll"></p>
+
+						<form id="comment-form" class="animate-onscroll" method="post">
+							{% csrf_token %}
+							<div class="inline-inputs">
+								
+								<div class="col-lg-6 col-md-6 col-sm-6">
+									<label>姓名*</label>
+									{{ form.comment_name }}								
+								</div>
+								
+								<div class="col-lg-6 col-md-6 col-sm-6">
+									<label>邮箱*</label>
+									{{ form.comment_email }}		
+								</div>
+								
+								<div class="col-lg-12 col-md-12 col-sm-12">
+									<label>内容</label>
+									{{ form.comment_content }}
+								</div>
+								
+							</div>
+							
+							<input type="submit" value="发表评论">
+							
+						</form>
+						
+					</div>
+					
+					
+					
+					<!-- Sidebar -->
+					<div class="col-lg-3 col-md-3 col-sm-4 sidebar">
+				
+{% include 'sidebar_popular_news.html' %}
+{% include 'sidebar_searchbox.html' %}
+{% include 'sidebar_tags.html' %}
+{% include 'sidebar_category.html' %}							
+{% include 'sidebar_archives.html' %}							
+						
+					</div>
+					<!-- /Sidebar -->
+				
+				</div>
+				
+			</section>
+			<!-- /Section -->
+			
+{% endblock %}

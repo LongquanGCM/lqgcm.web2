@@ -1,0 +1,94 @@
+
+{% extends 'base.html' %}
+
+{% block title %}大和尚答疑{% endblock %}
+			
+{% block content %}		
+				
+<script>
+
+</script>
+
+<!--<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">-->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<style>
+    /* set the position of modal window */
+    .modal-dialog {
+        position: absolute;
+        top: 180px;
+        right: 50px;
+        bottom: 0px;
+        left: 0;
+        z-index: 10040;
+        overflow: auto;
+        overflow-y: auto;
+    }
+</style>
+
+<!-- Page Heading -->
+<section class="section page-heading animate-onscroll">
+    <h1>大和尚答疑</h1>
+</section>
+<!-- Page Heading -->
+
+<!-- Section -->
+<section class="section full-width-bg gray-bg">
+
+    <div class="row">
+        <div class="col-lg-9 col-md-9 col-sm-8">
+            <ul>
+                {% for dayi in dayi_list %}
+                <li><a href="/longquan/venerable-dayi-single/{{dayi.topic|safe}}">{{ dayi.topic | safe }}</a></li>
+                
+                <div class="container">
+                    <!-- Trigger the modal with a button -->
+                    <li><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">{{ dayi.topic | safe }}</button></li>
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">{{ dayi.topic | safe }}</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>{{dayi.text | safe}}</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                {% endfor %}	
+            </ul>
+        </div>
+
+        <!-- Sidebar -->					
+        <div class="col-lg-3 col-md-3 col-sm-4 sidebar">
+
+        {% include 'sidebar_activites.html' %}
+        {% include 'sidebar_upcoming_events.html' %}
+        {% include 'sidebar_xianer.html' %}						
+
+        </div>
+        <!-- /Sidebar -->							
+				
+    </div>
+
+</section>
+<!-- /Section -->
+
+
+{% endblock %}

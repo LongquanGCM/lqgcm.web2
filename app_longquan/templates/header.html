@@ -1,0 +1,200 @@
+<script>
+		$.ajaxSetup({
+		    data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+		});
+
+			function email_sub() {
+				
+				  var newsletter_email=document.newsletter.newsletter_email.value;
+					 if(newsletter_email == null ||newsletter_email ==''){
+						 document.getElementById("EmailErr").innerHTML="<font color='red'>邮箱不能为空！</font>"
+							 document.get_involved.newsletter_email.focus();
+						    return false;
+					 }
+					 else{
+						 var pattern= /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;  
+					     strEmail=pattern.test(newsletter_email); 
+					     if(!strEmail){
+					    	 document.getElementById("EmailErr").innerHTML="<font color='red'>邮箱格式不正确！</font>"
+								 document.get_involved.newsletter_email.focus();
+							    return false;
+					     }
+						 else{
+							 document.getElementById("EmailErr").innerHTML=""
+						 }
+					 }
+				  var newsletter_zip=document.newsletter.newsletter_zip.value;
+				  
+			  $.post('{% url "app_longquan:email_sub" %}',{'newsletter_email':newsletter_email,'newsletter_zip':newsletter_zip}, function(ret){
+			      alert(ret);
+			  })
+			}
+</script>
+
+		<!-- Header -->
+		<header id="header" class="animate-onscroll">
+
+			<!-- Main Header -->
+			<div id="main-header">
+
+				<div class="container">
+
+					<div class="row">
+
+
+
+						<!-- Logo -->
+						<div id="logo" class="col-lg-3 col-md-3 col-sm-3">
+
+							<a href="{% url 'app_longquan:home' %}"><img src="/static/img/logo1.png" alt="Logo"></a>
+
+						</div>
+						<!-- /Logo -->
+
+
+
+						<!-- Main Quote -->
+						<div class="col-lg-5 col-md-4 col-sm-4">
+
+							<blockquote>
+								龙泉大悲寺<br>信仰 智慧 文化 生活
+							</blockquote>
+
+						</div>
+						<!-- /Main Quote -->
+
+
+
+						<!-- Newsletter -->
+						<div class="col-lg-4 col-md-5 col-sm-5">
+
+							<form name="newsletter">
+							{% csrf_token %}
+								<h5>
+									<strong>注册</strong>接收最新资讯
+								</h5>
+								<div class="newsletter-form">
+
+									<div class="newsletter-email">
+									    <span id="EmailErr"></span>
+										<input type="text" name="newsletter_email" placeholder="邮箱地址">
+									</div>
+
+									<div class="newsletter-zip">
+										<input type="text" name="newsletter_zip" placeholder="邮编">
+									</div>
+
+									<div class="newsletter-submit">
+										<input type="submit" value="" onclick="email_sub()" > <i
+											class="icons icon-right-thin"></i>
+									</div>
+								</div>
+							</form>
+						</div>
+						<!-- /Newsletter -->
+					</div>
+				</div>
+			</div>
+			<!-- /Main Header -->
+
+			<!-- Lower Header -->
+			<div id="lower-header">
+
+				<div class="container">
+
+					<div id="menu-button">
+						<div>
+							<span></span> <span></span> <span></span>
+						</div>
+						<span>菜单</span>
+					</div>
+
+					<ul id="navigation">
+
+
+						<!-- Home -->
+						<li {% if request.path|slice:"15" == "/longquan/home/" %} class="current-menu-item home-button" {%else %} class="home-button" {%endif%}><a href="{% url 'app_longquan:home' %}"><i
+								class="icons icon-home"></i></a></li>
+						<!-- /Home -->
+
+						<!-- venerable -->
+						<li {% if request.path|slice:"28" == "/longquan/venerable-profile/" or request.path|slice:"25" == "/longquan/venerable-blog/" %} class="current-menu-item" {% endif %}><span>学诚大和尚</span>
+
+							<ul>
+
+								<li><a href="{% url 'app_longquan:venerable-profile' %}">学诚法师</a></li>
+								<li><a href="{% url 'app_longquan:venerable-blog' %}">著作</a></li>
+								<li><a href="{% url 'app_longquan:venerable-fayu' %}">法语</a></li>
+								<li><a href="{% url 'app_longquan:venerable-dayi' %}">大和尚答疑</a></li>
+								<li><a href="{% url 'app_longquan:xianer' %}">小和尚贤二</a></li>
+
+							</ul></li>
+						<!-- /venerable -->
+
+						<!-- Services -->
+						<li  {% if request.path|slice:"17" == "/longquan/events/" or request.path|slice:"19" == "/longquan/seminars/"%} class="current-menu-item" {% endif %}><span>大悲道场</span>
+
+							<ul>
+
+								<li><a href="{% url 'app_longquan:events' %}">法事活动</a></li>
+								<li><a href="{% url 'app_longquan:seminars' %}">学修课程</a></li>
+								<li><a href="{% url 'app_longquan:dabeishiye' %}">大悲视野</a></li>
+								<li><a href="{% url 'app_longquan:report' %}">心得分享</a></li>
+
+							</ul></li>
+						<!-- /Services -->
+
+						<!-- Workshop -->
+						<li><span>学术交流</span>
+							<ul>
+
+								<li><a href="{% url 'app_longquan:workshops' %}">交流活动</a></li>
+								<li><a href="workshop-masters.html">交流法师</a></li>
+							</ul></li>
+						<!-- /Workshop -->
+
+
+
+						<!-- Records -->
+						<li><span>对外交往</span>
+
+							<ul>
+
+								<li><a href="{% url 'app_longquan:records' %}">对外活动</a></li>
+								<li><a href="{% url 'app_longquan:records-share' %}">活动心得</a></li>
+                                <li><a href="{% url 'app_longquan:share-views' %}">欧洲参访心得</a></li>
+                                
+							</ul></li>
+						<!-- /Records -->
+
+						<!-- Q&A -->
+						<li><span>佛教常识</span>
+
+							<ul>
+
+								<li><a href="questions.html">佛教常识问答</a></li>
+
+							</ul></li>
+						<!-- /Q&A-->
+
+						<!-- Contact -->
+						<li {% if request.path|slice:"16" == "/longquan/about/" or request.path|slice:"18" == "/longquan/contact/" or request.path|slice:"15" == "/longquan/team/" or request.path|slice:"23" == "/longquan/get-involved/" %} class="current-menu-item" {% endif %}><span>联系我们</span>
+
+							<ul>
+							    <li><a href="{% url 'app_longquan:about' %}">龙泉大悲寺简介</a></li>
+								<li><a href="{% url 'app_longquan:team' %}">僧团</a></li>
+								<li><a href="{% url 'app_longquan:get-involved' %}">义工</a></li>
+								<li><a href="{% url 'app_longquan:contact' %}">联系我们</a></li>
+							</ul></li>
+						<!-- /Contact -->
+
+					</ul>
+
+				</div>
+
+			</div>
+			<!-- /Lower Header -->
+
+
+		</header>
+		<!-- /Header -->

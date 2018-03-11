@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}{{records_share.article_title |safe}}{% endblock %}
+			
+{% block content %}		
+
+<!-- Page Heading -->
+<section class="section page-heading animate-onscroll">
+    <h1>{{records_share.article_title | safe}}</h1>
+</section>
+<!-- Page Heading -->
+
+<!-- Section -->
+<section class="section full-width-bg gray-bg">
+
+    <div class="row">
+        <div class="col-lg-9 col-md-9 col-sm-8">
+            <!-- Single Blog Post -->
+            <div class="blog-post-single">
+                <div class="post-content" class="animate-onscroll">
+                    <p>时间：{{records_share.article_pubDate | safe}}</p><br />
+                    <p>{{records_share.article_content | safe}}</p><br />
+                </div>
+
+                <!-- Post Meta Track -->
+                <div class="post-meta-track animate-onscroll">
+                    <table class="project-details">
+                        <tr>
+                            <td class="share-media">
+                                <ul class="social-share">	
+                                    <li>分享:</li>
+                                    <li class="facebook"><a href="https://www.facebook.com/sharer.php?u=${shareUrl}" class="tooltip-ontop" title="Facebook"><i class="icons icon-facebook"></i></a></li>
+                                    <li class="twitter"><a href="https://twitter.com/intent/tweet?url=${shareUrl}" class="tooltip-ontop" title="Twitter"><i class="icons icon-twitter"></i></a></li>
+                                    <li class="google"><a href="https://plus.google.com/share?url=${shareUrl}" class="tooltip-ontop" title="Google Plus"><i class="icons icon-gplus"></i></a></li>
+                                    <li class="email"><a href="mailto:someone@gmail.com?subject=分享龙泉大悲寺学术交流?&body=${shareUrl}" class="tooltip-ontop" title="Email"><i class="icons icon-mail"></i></a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- /Post Meta Track -->
+            </div>	
+            <!-- /Single Blog Post -->	
+
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-3 col-md-3 col-sm-4 sidebar">
+            {% include 'sidebar_activites.html' %}
+            {% include 'sidebar_video.html' %}
+            {% include 'sidebar_upcoming_events.html' %}
+            {% include 'sidebar_xianer.html' %}					
+        </div>
+        <!-- /Sidebar -->
+
+    </div>
+
+</section>
+<!-- /Section -->
+
+{% endblock %}

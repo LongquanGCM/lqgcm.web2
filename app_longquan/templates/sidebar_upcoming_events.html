@@ -1,0 +1,48 @@
+<script>
+window.onload = function() {
+	$.get('{% url "app_longquan:sidebar_upcoming_events" %}', function(data){
+		var date = data.event_date;
+		var day = date.substr(8,2);
+		document.getElementById('day').innerHTML=day;
+		var month = date.substr(5,2);
+		if(month.substr(0,1)=='0')
+			month = month.substr(1,1);
+		document.getElementById('month').innerHTML=month+"月";
+		var html = "<a href='events-single.html'>"+data.event_title+"</a>";
+		document.getElementById('title').innerHTML=html;
+		var html= "";
+		for(j = 0; j< data.event_schedule.length; j++) {
+			html = html + "<li><i class='icons icon-clock'></i>" + data.event_schedule[j] + "</li>";
+		}
+		document.getElementById('schedule').innerHTML=html;            
+	});
+}
+</script>
+
+						<!-- Upcoming Events -->
+						<div class="sidebar-box white animate-onscroll">
+							<h3>近期法会</h3>
+							<ul class="upcoming-events">
+
+								<!-- Event -->
+								<li>
+									<div class="date">
+										<span> <span class="day" id="day">28</span> <span class="month" id="month">3月</span>
+										</span>
+									</div>
+
+									<div class="event-content">
+										<h6 id="title">
+											<a href="events-single.html">{{activity_title}}</a>
+										</h6>
+										<ul class="event-meta" id="schedule">
+										</ul>
+									</div>
+								</li>
+								<!-- /Event -->
+
+
+							</ul>
+							<a href="{% url 'app_longquan:events' %}"" class="button transparent button-arrow">更多法事活动</a>
+						</div>
+						<!-- /Upcoming Events -->

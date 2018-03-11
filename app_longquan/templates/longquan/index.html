@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}欢迎光临首页{% endblock %}
+
+{% block content %}
+<span>大悲道场</span>
+<ul>
+    <li><a href="{% url 'app_longquan:activities' %}">法事活动</a></li>
+    <li><a href="{% url 'app_longquan:seminars' %}">学修课程</a></li>
+    <li><a href="event-post-v2.html">大悲视野</a></li>
+    <li><a href="event-post-v2.html">心得分享</a></li>
+</ul>
+{% endblock %}

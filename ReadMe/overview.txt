@@ -1,0 +1,104 @@
+前端用户界面：
+   0. put all info in the current database to the new database
+   0. 主页
+      0.1 除了header以外，链接基本不工作。
+      0.2 主页header的六个下拉菜单的宽度和上面不一样 -> minor problem
+   1. 学诚大和尚
+      1.1 学诚法师
+      1.2 著作 (venerable-blog)
+          1.2.1 shall we display one article per page? or sevaral articles per page? e.g., 10?
+          1.2.2 访问量不工作，admin里也不能为空
+          1.2.3 pictures are moved to folder 'articles' instead of 'article', but pic one works for both article and articles, and pic 2 doesn't work, need to update html file
+          1.2.4 sidebar link doesn't work
+      1.3 法语 (fayu)
+          1.3.1 use modal instead of dayi-single.html
+      1.4 大和尚答疑 (dayi)
+          1.4.1 use modal instead of dayi-single.html or use the format in 法语?
+          1.4.2 modal always show the content of 1st topic/text
+      1.5 小和尚贤二:
+          1.5.1 add "link photos to stories behind Xianer"
+          1.5.2 use modal instead of dayi-single.html
+   2. 大悲道场
+      2.1 法事活动 (event):
+          2.1.1 calander doesn't work for go to next/pre month, and info in calander is always august
+          2.1.2 报名功能不工作：邮箱空不能显示，午饭未选无明显提示，点击报名后不能写到数据库里去。
+          2.1.3 sidebar_upcoming_events.html 内容不正确，永远显示3月28日，显示活动为当前活动。
+      2.2 学修课程 (seminar):
+          2.2.1 活动日期格式需要CharField，e.g., 每周一 12:30-14:15
+          2.2.2 报名功能不工作：邮箱空不能显示，点击报名后不能写到数据库里去。
+      2.3 大悲视野
+      2.4 心得分享
+   3. 学术交流 (workshop)
+      3.1 交流活动 (workshop):
+          3.1.1 same speakers info is displayed in all workshop-single page
+          3.1.2 change the column value to '学术交流' instead
+          3.1.3 polish the button that direct to 'topic_content' in a modal window
+      3.2 交流法师 (speaker):       page not found
+          3.2.1 currently it doesn't show any useful info, need to see how to make a good many-to-many relation between speakers to workshops
+   4. 对外活动 (records)
+      4.1 对外活动 (record):
+          4.1.1 activity_publish_time cannot leave empty
+          4.1.2 activity_date is not correctly displayed, i.e., the saved time in admin is 2 hours different than the time displayed in html page
+      4.2 活动心得 (records-share)
+      4.3 欧洲参访心得 (share-views)
+          4.3.1 in share-views-single.html page, there's white colour background for the whole article, check how to remove it.
+          4.3.2 '分享 -> email'功能不工作
+   5. 佛教常识
+      5.1 佛教常识问答:              page not found
+   6. 联系我们
+      6.1 龙泉大悲寺简介
+      6.2 僧团
+          6.2.1 change from static page to access database
+      6.3 义工
+          6.3.1 报名功能不工作
+      6.4 联系我们
+
+===============
+前台每个类目数据表需要的栏目
+[done] static pages:
+  1.1 [done] 学诚法师: static page "venerable-profile.html"
+  6.1 [done] 龙泉大悲寺简介 (possible to make it home page??): static page "about.html"
+  6.4 [done] 联系我们: static page "contact.html"
+
+[done] articles: title, author (opt), picture (opt), source (opt), link (opt), pubDate, description (opt), content (opt), reply/comment (opt), tags (opt)
+  1.2 [done] 著作 (venerable-blog):  l.title,         l.author, picture,                     , l.pubDate, l.article description, article content, reply/comment
+  2.3 [done] 大悲视野 (dabeishiye):           l.title,         l.author, picture, source, link -> news, l.pubDate,    l.news description,    news content
+  2.4 [done] 心得分享 (report报道,记实??):      l.title,         l.author, picture,       ,             , l.pubDate,                      ,         content
+  4.2 [done] 活动心得 (records-share):  l.title (xx心得), l.author, picture,                     , l.pubDate,                      ,         content, tags
+  4.3 [done] 欧洲参访心得 (share views): l.title,         ,       ,        ,                     , l.pubDate,                      ,         content
+  
+[done] activities: title, location (opt), picture (opt), schedule (opt), source (opt), activity date, description, content (opt), tags (opt), enroll (opt)
+  2.1 [done] 法事活动 (event):    l.title, location, picture (opt), schedule      ,       ,    l.event date,    l.event description,    event content
+  2.2 [done] 学修课程 (seminar):  l.title, location, picture      , schedule (opt),       ,  l.seminar date,  l.seminar description,  seminar content
+  4.1 [done] 对外活动 (record):   l.title,         , picture      ,               ,       , l.activity date, l.activity description, activity content, tags
+  3.1 [done] 交流活动 (workshop): l.title,         , picture      ,      ,        , source, l.activity date, l.activity description, activity content, speakers
+  3.2 [done] 交流法师 (speaker): link to each speaker: l.speakers.name + l.speakers.role + l.speakers.picture + l.speakers.description, speakers.topic, speakers.content
+
+inspiration: topic, pub_time (opt), text (opt), picture (opt)
+  1.3 [done] 法语:      topic, pubDate, a sentence,
+  1.4 [done] 大和尚答疑: topic,        , text (Q&A),
+  1.5 [done] 小和尚贤二: topic, pubDate,           , picture
+
+Q&A: about Buddhism
+  5.1 佛教常识问答: ??
+
+others: 
+  6.2 僧团: name, role, picture, profile
+  6.3 义工: email enroll
+
+===============
+后台数据库总览
+
+数据从旧网页导到新网页。
+
+Admin page
+- Admin editor page shall be able to show different field if certain column is selected.
+
+views.py
+- some 'def' are almost the same, see if can create some kind of template to reuse
+  - DabeishiyeView, ReportView, RecordShareView, ShareViewsView, RecordView, WorkshopView, SeminarView, EventView
+  - DabeishiyeSingleView, ReportSingleView, RecordShareSingleView, ShareViewsSingleView, RecordSingleView, WorkshopsSingleView, SeminarSingleView, EventSingleView
+
+tests.py is empty
+- test activity-admin, if all strings combinations are allowed
+- 

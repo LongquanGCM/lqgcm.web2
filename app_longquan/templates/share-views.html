@@ -1,0 +1,46 @@
+
+{% extends 'base.html' %}
+
+{% block title %}欧洲参访心得{% endblock %}
+			
+{% block content %}		
+				
+<script>
+
+</script>
+
+<!-- Page Heading -->
+<section class="section page-heading animate-onscroll">
+    <h1>欧洲参访心得</h1>
+</section>
+<!-- Page Heading -->
+
+<!-- Section -->
+<section class="section full-width-bg gray-bg">
+
+    <div class="row">
+        <div class="col-lg-9 col-md-9 col-sm-8">
+            <ol>
+                {% for share_views in share_views_list %}
+                <li><a href="/longquan/share-views-single/{{share_views.article_title|safe}}">{{ share_views.article_title | safe }}</a></li>
+                {% endfor %}	
+            </ol>
+        </div>
+
+        <!-- Sidebar -->					
+        <div class="col-lg-3 col-md-3 col-sm-4 sidebar">
+
+        {% include 'sidebar_activites.html' %}
+        {% include 'sidebar_upcoming_events.html' %}
+        {% include 'sidebar_xianer.html' %}						
+
+        </div>
+        <!-- /Sidebar -->							
+				
+    </div>
+
+</section>
+<!-- /Section -->
+
+
+{% endblock %}
